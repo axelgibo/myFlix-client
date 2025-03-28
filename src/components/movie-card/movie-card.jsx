@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 
 export const MovieCard = ({ movie, onMovieClick }) => {
   return (
@@ -8,4 +9,17 @@ export const MovieCard = ({ movie, onMovieClick }) => {
       <p>Director: {movie.Director.Name}</p>
     </div>
   );
+};
+
+MovieCard.propTypes = {
+  movie: PropTypes.shape({
+    _id: PropTypes.string.isRequired,
+    Title: PropTypes.string.isRequired,
+    ImagePath: PropTypes.string,
+    Director: PropTypes.shape({
+      Name: PropTypes.string.isRequired,
+    }).isRequired,
+    // Add other movie properties here if needed
+  }).isRequired,
+  onMovieClick: PropTypes.func.isRequired,
 };
