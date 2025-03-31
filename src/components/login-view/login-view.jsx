@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import PropTypes from 'prop-types';
 
 export const LoginView = ({ onLoggedIn }) => {
   const [username, setUsername] = useState("");
@@ -14,8 +15,8 @@ export const LoginView = ({ onLoggedIn }) => {
     }
 
     const data = {
-      username: username,
-      password: password,
+      username: Username,
+      password: Password,
     };
 
     fetch("https://myflix-application-318482b84ceb.herokuapp.com/login", {
