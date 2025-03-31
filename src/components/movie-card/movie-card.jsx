@@ -1,15 +1,23 @@
 import React from "react";
 import PropTypes from "prop-types";
+import { Button, Card } from "react-bootstrap";
+import "./movie-card.scss";
 
 export const MovieCard = ({ movie, onMovieClick }) => {
   return (
-    <div className="movie-card" onClick={() => onMovieClick(movie)}>
-      <h3>{movie.Title}</h3>
-      <img src={movie.ImagePath} alt={movie.Title} className="movie-image" />
-      <p>Director: {movie.Director.Name}</p>
-    </div>
+    <Card>
+      <Card.Img variant="top" src={movie.image} />
+      <Card.Body>
+        <Card.Title>{movie.title}</Card.Title>
+        <Button onClick={() => onMovieClick(movie)} variant="link">
+          Open
+        </Button>
+      </Card.Body>
+    </Card>
   );
 };
+
+    Try
 
 MovieCard.propTypes = {
   movie: PropTypes.shape({

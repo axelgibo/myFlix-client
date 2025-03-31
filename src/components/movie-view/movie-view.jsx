@@ -1,10 +1,15 @@
 import React from "react";
 import PropTypes from "prop-types";
+import "./book-view.scss";
 
 export const MovieView = ({ movie, onBackClick }) => {
   return (
     <div className="movie-view">
-      <button onClick={onBackClick} className="back-button">
+      <button
+        onClick={onBackClick}
+        className="back-button"
+        style={{ cursor: "pointer" }}
+      >
         Back
       </button>
 
