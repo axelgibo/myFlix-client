@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import PropTypes from "prop-types";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
+import Alert from "react-bootstrap/Alert";
 
 export const LoginView = ({ onLoggedIn }) => {
   const [username, setUsername] = useState("");
@@ -49,7 +50,8 @@ export const LoginView = ({ onLoggedIn }) => {
 
   return (
     <Form onSubmit={handleSubmit}>
-      <Form.Group controlId="formUsername">
+      {error && <Alert variant="danger">{error}</Alert>}
+      <Form.Group controlId="formUsername" className="mb-3">
         <Form.Label>Username:</Form.Label>
         <Form.Control
           type="text"
@@ -60,7 +62,7 @@ export const LoginView = ({ onLoggedIn }) => {
         />
       </Form.Group>
 
-      <Form.Group controlId="formPassword">
+      <Form.Group controlId="formPassword" className="mb-3">
         <Form.Label>Password:</Form.Label>
         <Form.Control
           type="password"

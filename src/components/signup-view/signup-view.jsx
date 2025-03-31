@@ -2,73 +2,17 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
+import Alert from "react-bootstrap/Alert";
+import { Spinner } from 'react-bootstrap';
 
 export const SignupView = () => {
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
-  const [email, setEmail] = useState("");
-  const [birthday, setBirthday] = useState("");
-  const [error, setError] = useState("");
-  const [loading, setLoading] = useState(false);
-  const navigate = useNavigate();
-
-  const handleSubmit = (event) => {
-    event.preventDefault();
-
-    if (!username || !password || !email || !birthday) {
-      setError("Please fill in all fields.");
-      return;
-    }
-
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(email)) {
-      setError("Please enter a valid email address.");
-      return;
-    }
-
-    setLoading(true);
-
-    const data = {
-      Username: username,
-      Password: password,
-      Email: email,
-      Birthday: birthday,
-    };
-
-    fetch("https://myflix-application-318482b84ceb.herokuapp.com/users", {
-      method: "POST",
-      body: JSON.stringify(data),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        setLoading(false);
-
-        if (data._id) {
-          alert("Signup successful");
-          navigate("/");
-        } else {
-          setError("Signup failed. Please try again.");
-        }
-      })
-      .catch((err) => {
-        setLoading(false);
-        setError("Something went wrong");
-      });
-
-    setUsername("");
-    setPassword("");
-    setEmail("");
-    setBirthday("");
-  };
+  // ... your state and handleSubmit ...
 
   return (
     <Form onSubmit={handleSubmit}>
-      {error && <p style={{ color: "red" }}>{error}</p>}
-      {loading && <p>Signing up...</p>}
-      <Form.Group controlId="formUsername">
+      {error && <Alert variant="danger">{error}</Alert>}
+      {loading && <Spinner animation="border" role="status"><span className="visually-hidden">Loading...</span></Spinner>}
+      <Form.Group controlId="formUsername" className="mb-3">
         <Form.Label>Username:</Form.Label>
         <Form.Control
           type="text"
@@ -79,7 +23,7 @@ export const SignupView = () => {
         />
       </Form.Group>
 
-      <Form.Group controlId="formPassword">
+      <Form.Group controlId="formPassword" className="mb-3">
         <Form.Label>Password:</Form.Label>
         <Form.Control
           type="password"
@@ -89,7 +33,7 @@ export const SignupView = () => {
         />
       </Form.Group>
 
-      <Form.Group controlId="formEmail">
+      <Form.Group controlId="formEmail" className="mb-3">
         <Form.Label>Email:</Form.Label>
         <Form.Control
           type="email"
@@ -99,7 +43,7 @@ export const SignupView = () => {
         />
       </Form.Group>
 
-      <Form.Group controlId="formBirthday">
+      <Form.Group controlId="formBirthday" className="mb-3">
         <Form.Label>Birthday:</Form.Label>
         <Form.Control
           type="date"

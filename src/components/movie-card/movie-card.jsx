@@ -5,19 +5,17 @@ import "./movie-card.scss";
 
 export const MovieCard = ({ movie, onMovieClick }) => {
   return (
-    <Card>
-      <Card.Img variant="top" src={movie.image} />
+    <Card className="mb-4">
+      <Card.Img variant="top" src={movie.ImagePath} className="img-fluid" />
       <Card.Body>
-        <Card.Title>{movie.title}</Card.Title>
-        <Button onClick={() => onMovieClick(movie)} variant="link">
-          Open
+        <Card.Title className="text-center">{movie.Title}</Card.Title>
+        <Button onClick={() => onMovieClick(movie)} variant="primary">
+          View Movie
         </Button>
       </Card.Body>
     </Card>
   );
 };
-
-    Try
 
 MovieCard.propTypes = {
   movie: PropTypes.shape({
