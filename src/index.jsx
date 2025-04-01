@@ -1,16 +1,24 @@
-import { createRoot } from 'react-dom/client';
-import "./index.scss";
+import React from 'react';
+import ReactDOM from 'react-dom/client';
+import { BrowserRouter } from 'react-router-dom'; // Import BrowserRouter
+import './index.scss';
 import { MainView } from './components/main-view/main-view';
+import Container from 'react-bootstrap/Container';
 
 const MyFlixApplication = () => {
   return (
-    <div className="my-flix">
+    <Container>
       <MainView />
-    </div>
+    </Container>
   );
 };
 
-const container = document.querySelector("#root");
-const root = createRoot(container);
-
-root.render(<MyFlixApplication />);
+const container = document.getElementById('root');
+const root = ReactDOM.createRoot(container);
+root.render(
+  <React.StrictMode>
+    <BrowserRouter> {/* Wrap your application with BrowserRouter */}
+      <MyFlixApplication />
+    </BrowserRouter>
+  </React.StrictMode>
+);
