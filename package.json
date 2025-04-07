@@ -19,6 +19,7 @@
     "eject": "react-scripts eject"
   },
   "dependencies": {
+    "@parcel/watcher": "^2.5.1",
     "bootstrap": "^5.3.3",
     "prop-types": "^15.8.1",
     "react": "^19.0.0",
