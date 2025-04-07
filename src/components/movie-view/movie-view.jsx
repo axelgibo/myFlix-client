@@ -1,42 +1,30 @@
 import React from "react";
-import PropTypes from "prop-types";
+import { useParams, Link } from "react-router-dom";
 
-export const MovieView = ({ movie, onBackClick }) => {
+export const MovieView = ({ movies }) => {
+  const { movieId } = useParams();
+  const movie = movies.find((m) => m._id === movieId);
+
+  if (!movie) {
+    return <div>Movie not found.</div>;
+  }
+
   return (
-    <div className="movie-view">
-      <button onClick={onBackClick} className="back-button">
-        Back
-      </button>
-
-      <h2>{movie.Title}</h2>
-      <img src={movie.ImagePath} alt={movie.Title} className="movie-image" />
-      <p>
-        <strong>Description:</strong> {movie.Description}
-      </p>
-      <p>
-        <strong>Genre:</strong> {movie.Genre.Name}
-      </p>
-      <p>
-        <strong>Director:</strong> {movie.Director.Name}
-      </p>
-      {/* Add more movie details here */}
+    <div>
+      <div>
+        <img className="w-100" src={movie.ImagePath} alt={movie.Title} />
+      </div>
+      <div>
+        <span>Title: </span>
+        <span>{movie.Title}</span>
+      </div>
+      <div>
+        <span>Director: </span>
+        <span>{movie.Director.Name}</span>
+      </div>
+      <Link to="/">
+        <button className="back-button p-2">Back</button>
+      </Link>
     </div>
   );
-};
-
-MovieView.propTypes = {
-  movie: PropTypes.shape({
-    _id: PropTypes.string.isRequired,
-    Title: PropTypes.string.isRequired,
-    ImagePath: PropTypes.string,
-    Description: PropTypes.string.isRequired,
-    Genre: PropTypes.shape({
-      Name: PropTypes.string.isRequired,
-    }).isRequired,
-    Director: PropTypes.shape({
-      Name: PropTypes.string.isRequired,
-    }).isRequired,
-    // Add other movie properties here if needed
-  }).isRequired,
-  onBackClick: PropTypes.func.isRequired,
 };

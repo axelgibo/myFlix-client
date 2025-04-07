@@ -1,5 +1,8 @@
 import React, { useState } from "react";
-import PropTypes from 'prop-types';
+import PropTypes from "prop-types";
+import Button from "react-bootstrap/Button";
+import Form from "react-bootstrap/Form";
+import Alert from "react-bootstrap/Alert";
 
 export const LoginView = ({ onLoggedIn }) => {
   const [username, setUsername] = useState("");
@@ -15,8 +18,8 @@ export const LoginView = ({ onLoggedIn }) => {
     }
 
     const data = {
-      username: Username,
-      password: Password,
+      Username: Username,
+      Password: Password,
     };
 
     fetch("https://myflix-application-318482b84ceb.herokuapp.com/login", {
@@ -33,7 +36,7 @@ export const LoginView = ({ onLoggedIn }) => {
           localStorage.setItem("user", JSON.stringify(data.user));
           localStorage.setItem("token", data.token);
           onLoggedIn(data.user, data.token);
-          setUsername(""); // Clear input fields
+          setUsername("");
           setPassword("");
           setError("");
         } else {
@@ -46,27 +49,35 @@ export const LoginView = ({ onLoggedIn }) => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      {error && <p style={{ color: "red" }}>{error}</p>}
-      <label>
-        Username:
-        <input
+    <Form onSubmit={handleSubmit}>
+      {error && <Alert variant="danger">{error}</Alert>}
+      <Form.Group controlId="formUsername" className="mb-3">
+        <Form.Label>Username:</Form.Label>
+        <Form.Control
           type="text"
           value={username}
           onChange={(e) => setUsername(e.target.value)}
           required
+          minLength="3"
         />
-      </label>
-      <label>
-        Password:
-        <input
+      </Form.Group>
+
+      <Form.Group controlId="formPassword" className="mb-3">
+        <Form.Label>Password:</Form.Label>
+        <Form.Control
           type="password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           required
         />
-      </label>
-      <button type="submit">Submit</button>
-    </form>
+      </Form.Group>
+      <Button variant="primary" type="submit">
+        Submit
+      </Button>
+    </Form>
   );
+};
+
+LoginView.propTypes = {
+  onLoggedIn: PropTypes.func.isRequired,
 };
