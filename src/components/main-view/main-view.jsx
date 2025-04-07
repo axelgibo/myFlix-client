@@ -24,7 +24,12 @@ export const MainView = () => {
     })
       .then((response) => response.json())
       .then((data) => {
+        console.log(data);
         setMovies(data);
+      })
+      .catch((error) => {
+        console.error("Error fetching movies:", error);
+        alert("Error fetching movies.");
       });
   }, [token]);
 
@@ -33,6 +38,21 @@ export const MainView = () => {
     setToken(null);
     localStorage.clear();
   };
+
+  if (!user) {
+    return (
+      <>
+        <LoginView
+          onLoggedIn={(user, token) => {
+            setUser(user);
+            setToken(token);
+          }}
+        />
+        or
+        <SignupView />
+      </>
+    );
+  }
 
   return (
     <> {/* Replaced BrowserRouter with a fragment (<>) */}
